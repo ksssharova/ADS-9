@@ -33,7 +33,7 @@ class BST {
       return 0;
     else if (root->value < value)
       return searchNode(root->left, value);
-    else if (root->value > right)
+    else if (root->value > value)
       return searchNode(root->right, value);
     else
       return root->count;
