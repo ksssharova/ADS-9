@@ -8,22 +8,23 @@
 BST<std::string> makeTree(const char* filename) {
   // поместите сюда свой код
   BST<std::string> bst;
-  std::ifstream file(filename);
   std::string word = "";
+  char lowercase = 'a' - 'A';
+  std::ifstream file(filename);
   if (!file.is_open()) {
     throw std::string("Error! Can not open file!");
   }
   while (!file.eof()) {
-    word = "";
-    while (true) {
-      char dop = file.get();
-      if ((dop >= 65 && dop <= 90) || (dop >= 97 && dop <= 122)) {
-        word += tolower(dop);
-      } else {
-        break;
-      }
+    char ch = file.get();
+    if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+      if (ch >= 'A' && ch <= 'Z')
+        ch += lowercase;
+      word += ch;
+    } else if (word != "") {
+      bst.add(word);
+      word = "";
     }
-    bst.Add(word);
   }
+  file.close();
   return bst;
 }
